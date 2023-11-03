@@ -8,7 +8,7 @@ import getImageSource from '../helpers/ImageHelper';
 const Profile = ({ navigation }) => {
   const [name, setName] = useState('Yahaya Mukhtar');
   const [email, setEmail] = useState('yahayamukhtar@gmail.com');
-  const [phone, setPhone] = useState('+2348123402377');
+  const [phone, setPhone] = useState('+2349072313575');
   const [address, setAddress] = useState('Katsina state, Nigeria.');
   const [profilePicture, setProfilePicture] = useState(true);
   const [currentSection, setCurrentSection] = useState('profile');
@@ -78,7 +78,7 @@ const Profile = ({ navigation }) => {
           >
             {profilePicture ? (
               <Image
-                source={getImageSource('anime2')}
+                source={getImageSource('mukky')}
                 style={styles.profilePicture}
               />
             ) : (

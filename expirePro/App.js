@@ -5,9 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from "./screens/Login";
 import Dashboard from "./screens/Dashboard";
 import Profile from "./screens/Profile";
-import VocabularyPractice from "./screens/VocabularyPractice";
-import SpeakingExerciseScreen from "./screens/Speaking";
 import CultureInsightsScreen from "./screens/CultureInsights";
+import AddFoodItemScreen from "./screens/AddFoodItem";
+import ExpiryDateNotificationsScreen from "./screens/ExpiryDateNotifications";
 const Stack = createStackNavigator();
 const App = () => {
   
@@ -19,9 +19,9 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="VocabularyPractice" component={VocabularyPractice} />
-        <Stack.Screen name="SpeakingExercises" component={SpeakingExerciseScreen} />
-        <Stack.Screen name="CulturalInsights" component={CultureInsightsScreen} />
+        <Stack.Screen name="AddFoodItem" component={AddFoodItemScreen} />
+        <Stack.Screen name="ExpiryDateNotifications" component={ExpiryDateNotificationsScreen} />
+        <Stack.Screen name="InventoryManagement" component={CultureInsightsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

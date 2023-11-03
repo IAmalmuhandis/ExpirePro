@@ -12,6 +12,8 @@ const getImageSource = (imageName) => {
         return require('../assets/Images/wrong--icon.png');
         case 'profile':
         return require('../assets/Images/profile.jpg');
+        case 'mukky':
+        return require('../assets/Images/mukky.jpg');
       default:
         return null; // Return null for unknown image names
     }

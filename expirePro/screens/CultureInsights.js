@@ -1,119 +1,63 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import Bottombar from '../layout/Bottombar';
-const CultureInsightsScreen = () => {
-  const languageData = [
-    {
-      language: 'English',
-      country: 'United States',
-      insights: 'English is one of the most widely spoken languages in the world, and it is the official language of many countries. It has a rich history in literature and science.',
-    },
-    {
-      language: 'French',
-      country: 'France',
-      insights: 'French is known for its rich literary history and is spoken not only in France but also in various parts of the world. It is the language of love and culture.',
-    },
-    {
-      language: 'Spanish',
-      country: 'Spain',
-      insights: 'Spanish is the second most spoken language globally, with a vibrant culture and diverse dialects. It is celebrated with festivals and music.',
-    },
-    {
-      language: 'Mandarin Chinese',
-      country: 'China',
-      insights: 'Mandarin Chinese is the most spoken language in the world, known for its intricate characters and tonal pronunciation. It is deeply rooted in Chinese culture.',
-    },
-    {
-      language: 'Arabic',
-      country: 'Saudi Arabia',
-      insights: 'Arabic is the language of the Quran and has a rich history in Islamic culture. It is known for its calligraphy and poetic expressions.',
-    },
-    {
-      language: 'German',
-      country: 'Germany',
-      insights: 'German is a language of precision and engineering. It has a rich history in philosophy and is known for its compound words.',
-    },
-    {
-      language: 'Japanese',
-      country: 'Japan',
-      insights: 'Japanese is a language that reflects the nuances of Japanese culture. It has three writing systems: Kanji, Hiragana, and Katakana.',
-    },
-    {
-      language: 'Russian',
-      country: 'Russia',
-      insights: 'Russian is known for its Cyrillic script and rich literary tradition. It has a deep influence on classical music and ballet.',
-    },
-    {
-      language: 'Italian',
-      country: 'Italy',
-      insights: 'Italian is a language of art, food, and romance. It is known for its beautiful melodies and contributions to Renaissance art and culture.',
-    },
-    {
-      language: 'Portuguese',
-      country: 'Brazil',
-      insights: 'Portuguese is spoken not only in Portugal but also in Brazil, known for its vibrant Carnival and music. It has a diverse range of dialects.',
-    },
-    {
-      language: 'Dutch',
-      country: 'Netherlands',
-      insights: 'Dutch is a Germanic language known for its straightforwardness. It has a rich history in trade and exploration.',
-    },
-    // Add more language insights here
-  ];
-  
 
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+const InventoryManagementScreen = () => {
+  const [inventory, setInventory] = useState([
+    { id: 1, itemName: 'Milk', quantity: 2 },
+    { id: 2, itemName: 'Bread', quantity: 1 },
+    { id: 3, itemName: 'Eggs', quantity: 6 },
+    { id: 4, itemName: 'Apples', quantity: 5 },
+    { id: 5, itemName: 'Chicken', quantity: 1 },
+    { id: 6, itemName: 'Carrots', quantity: 3 },
+    { id: 7, itemName: 'Yogurt', quantity: 2 },
+    { id: 8, itemName: 'Bananas', quantity: 4 },
+    { id: 9, itemName: 'Pasta', quantity: 2 },
+    { id: 10, itemName: 'Tomatoes', quantity: 3 },
+  ]);
 
-  const openModal = (language) => {
-    setSelectedLanguage(language);
+  const markAsConsumed = (itemId) => {
+    const updatedInventory = inventory.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setInventory(updatedInventory);
   };
 
-  const closeModal = () => {
-    setSelectedLanguage(null);
+  const markAsDisposed = (itemId) => {
+    const updatedInventory = inventory.filter((item) => item.id !== itemId);
+    setInventory(updatedInventory);
   };
 
   return (
     <>
       <View style={styles.container}>
         <ScrollView>
-          {languageData.map((data, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.languageCard}
-              onPress={() => openModal(data)}
-            >
-              {/* <Image
-                source={require('../assets/Images/flag.png')} // Replace with the flag image for the respective country
-                style={styles.flag}
-              /> */}
-              <Text style={styles.languageName}>{data.language}</Text>
-              <Text style={styles.countryName}>{data.country}</Text>
-              <Text style={styles.insights}>{data.insights.substring(0, 100)}...</Text>
-            </TouchableOpacity>
+          <Text style={styles.title}>Inventory Management</Text>
+          {inventory.map((item) => (
+            <View style={styles.inventoryItem} key={item.id}>
+              <Text style={styles.itemName}>{item.itemName}</Text>
+              <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
+              <TouchableOpacity
+                style={styles.consumedButton}
+                onPress={() => markAsConsumed(item.id)}
+                disabled={item.quantity === 0}
+              >
+                <Text style={styles.consumedButtonText}>Mark as Consumed</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.disposeButton}
+                onPress={() => markAsDisposed(item.id)}
+              >
+                <Text style={styles.disposeButtonText}>Mark as Disposed</Text>
+              </TouchableOpacity>
+            </View>
           ))}
         </ScrollView>
       </View>
-
-      {selectedLanguage && (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={!!selectedLanguage}
-          onRequestClose={closeModal}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalLanguageName}>{selectedLanguage.language}</Text>
-              <Text style={styles.modalInsights}>{selectedLanguage.insights}</Text>
-              <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
-                <Text style={styles.closeButtonText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      )}
-
-      <Bottombar unreadAlerts={11} />
+      <Bottombar unreadAlerts={inventory.length} />
     </>
   );
 };
@@ -121,70 +65,57 @@ const CultureInsightsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+    paddingTop: 70,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
   },
-  languageCard: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 12,
-    padding: 16,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#ddd',
+    color: '#333',
   },
-  flag: {
-    width: 50,
-    height: 30,
+  inventoryItem: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 16,
     marginBottom: 10,
   },
-  languageName: {
-    fontSize: 24,
+  itemName: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
   },
-  countryName: {
-    fontSize: 18,
-    color: '#555',
-  },
-  insights: {
+  itemQuantity: {
     fontSize: 16,
-    color: '#777',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    width: '80%',
-    maxHeight: '80%',
-  },
-  modalLanguageName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  modalInsights: {
-    fontSize: 18,
     color: '#555',
-    marginTop: 10,
+    marginTop: 5,
   },
-  closeButton: {
-    backgroundColor: '#f0f0f0',
+  consumedButton: {
+    backgroundColor: '#333',
     borderRadius: 8,
     padding: 10,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
-  closeButtonText: {
+  consumedButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fff',
+  },
+  disposeButton: {
+    backgroundColor: '#ff6347',
+    borderRadius: 8,
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  disposeButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });
-export default CultureInsightsScreen;
+
+export default InventoryManagementScreen;

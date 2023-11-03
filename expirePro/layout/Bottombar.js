@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import stylesClass, { classes } from '../assets/css/styles';
 import { useNavigation } from '@react-navigation/native';
-// import getImageSource from '../helpers/ImageHelper';
-
+import stylesClass, { classes } from '../assets/css/styles';
 
 const Bottombar = ({ unreadAlerts }) => {
   const navigation = useNavigation();
@@ -12,48 +10,49 @@ const Bottombar = ({ unreadAlerts }) => {
   return (
     <View style={styles.bottombar}>
       <TouchableOpacity
-      style={styles.bottombarItem}
-      onPress={() => {
-      navigation.navigate('Dashboard'); // Navigate to the Dashboard screen (home)
-      }}
-    >
-       <FontAwesome name="home" size={30} color={classes.tertiaryColor} />
-       <Text style={styles.bottombarText}>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
         style={styles.bottombarItem}
         onPress={() => {
-          navigation.navigate('VocabularyPractice'); // Navigate to Vocabulary Practice screen
+          navigation.navigate('Dashboard'); // Leave the "Home" button as it is
         }}
       >
-        <FontAwesome name="book" size={30} color={classes.tertiaryColor} />
-        <Text style={styles.bottombarText}>Vocabulary</Text>
+        <FontAwesome name="home" size={30} color={classes.tertiaryColor} />
+        <Text style={styles.bottombarText}>Home</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.bottombarItem}
         onPress={() => {
-          navigation.navigate('SpeakingExercises'); // Navigate to Speaking Exercises screen
+          navigation.navigate('AddFoodItem'); // Navigate to Add Food Item screen
         }}
       >
-        <FontAwesome name="microphone" size={30} color={classes.tertiaryColor} />
-        <Text style={styles.bottombarText}>Speaking</Text>
+        <FontAwesome name="plus" size={30} color={classes.tertiaryColor} />
+        <Text style={styles.bottombarText}>Add Food Item</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.bottombarItem}
         onPress={() => {
-          navigation.navigate('CulturalInsights'); // Navigate to Cultural Insights screen
+          navigation.navigate('ExpiryDateNotifications'); // Navigate to Expiry Date Notifications screen
         }}
       >
-        <FontAwesome name="globe" size={30} color={classes.tertiaryColor} />
-        <Text style={styles.bottombarText}>Cultural</Text>
+        <FontAwesome name="bell" size={30} color={classes.tertiaryColor} />
+        <Text style={styles.bottombarText}>Notifications</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.bottombarItem}
         onPress={() => {
-          navigation.navigate('Profile'); // Navigate to Profile screen
+          navigation.navigate('InventoryManagement'); // Navigate to Inventory Management screen
+        }}
+      >
+        <FontAwesome name="list" size={30} color={classes.tertiaryColor} />
+        <Text style={styles.bottombarText}>Inventory</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.bottombarItem}
+        onPress={() => {
+          navigation.navigate('Profile'); // Leave the "Profile" button as it is
         }}
       >
         <FontAwesome name="user" size={30} color={classes.tertiaryColor} />
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   },
   bottombarText: {
     marginTop: 5,
-    fontSize: 12,
+    fontSize: 10,
     color: classes.tertiaryColor,
   },
 });

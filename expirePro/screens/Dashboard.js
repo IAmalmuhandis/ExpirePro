@@ -1,78 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation from React Navigation
+import { useNavigation } from '@react-navigation/native';
 import Bottombar from '../layout/Bottombar';
 import getImageSource from '../helpers/ImageHelper';
 
 const Dashboard = () => {
-  const navigation = useNavigation(); // Initialize the navigation object
-
-  // User's progress (between 0 and 100)
-  const userProgress = 70;
-
-  // Calculate the width of the inner value based on the user's progress
-  const innerValueWidth = `${userProgress}%`;
+  const navigation = useNavigation();
 
   return (
     <>
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerText}>Welcome, Sani Abdullahi!</Text>
+          <Text style={styles.headerText}>Welcome, Mukhtar!</Text>
         </View>
 
         {/* Feature Buttons */}
         <View style={styles.featureButtons}>
-          {/* Vocabulary Practice */}
+          {/* Add Food Item */}
           <TouchableOpacity
             style={styles.featureButton}
             onPress={() => {
-              navigation.navigate('VocabularyPractice'); // Navigate to Vocabulary Practice screen
+              navigation.navigate('AddFoodItem'); // Navigate to Add Food Item screen
             }}
           >
             <Image
               source={getImageSource('anime1')}
               style={styles.featureIcon}
             />
-            <Text style={styles.featureButtonText}>Vocabulary Practice</Text>
+            <Text style={styles.featureButtonText}>Add Food Item</Text>
           </TouchableOpacity>
 
-          {/* Speaking Exercises */}
+          {/* Expiry Date Notifications */}
           <TouchableOpacity
             style={styles.featureButton}
             onPress={() => {
-              navigation.navigate('SpeakingExercises'); // Navigate to Speaking Exercises screen
+              navigation.navigate('ExpiryDateNotifications'); // Navigate to Expiry Date Notifications screen
             }}
           >
             <Image
               source={getImageSource('anime2')}
               style={styles.featureIcon}
             />
-            <Text style={styles.featureButtonText}>Speaking Exercises</Text>
+            <Text style={styles.featureButtonText}>Expiry Date Notifications</Text>
           </TouchableOpacity>
 
-          {/* Cultural Insights */}
+          {/* Inventory Management */}
           <TouchableOpacity
             style={styles.featureButton}
             onPress={() => {
-              navigation.navigate('CulturalInsights'); // Navigate to Cultural Insights screen
+              navigation.navigate('InventoryManagement'); // Navigate to Inventory Management screen
             }}
           >
             <Image
               source={getImageSource('anime3')}
               style={styles.featureIcon}
             />
-            <Text style={styles.featureButtonText}>Cultural Insights</Text>
+            <Text style={styles.featureButtonText}>Inventory Management</Text>
           </TouchableOpacity>
-        </View>
-
-        {/* Progress Tracker */}
-        <View style={styles.progressTracker}>
-          <Text style={styles.progressText}>Your Progress:</Text>
-          <View style={styles.progressBar}>
-            {/* Dynamic inner value */}
-            <View style={[styles.innerValue, { width: innerValueWidth }]} />
-          </View>
         </View>
       </View>
       <Bottombar unreadAlerts={11} />
@@ -96,16 +81,18 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   featureButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 44,
+    flex: 1, // Allow feature buttons to take up available vertical space
+    flexDirection: 'column', // Change to column to align them vertically
+    justifyContent: 'center', // Vertically center the buttons
+    alignItems: 'center', // Horizontally center the buttons
   },
   featureButton: {
-    flex: 1,
     backgroundColor: '#f0f0f0',
     borderRadius: 30,
-    padding: 16,
-    margin: 3,
+    width: '80%',
+    paddingVertical: 30, // Add padding vertically
+    paddingHorizontal: 25, // Add padding horizontally
+    marginVertical: 10, // Add margin between buttons
     alignItems: 'center',
   },
   featureIcon: {
@@ -117,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center', // Center align the text
   },
   progressTracker: {
     flexDirection: 'row',
